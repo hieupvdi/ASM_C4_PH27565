@@ -1,0 +1,69 @@
+﻿@model DuAn.Models.Color
+
+@{
+    ViewData["Title"] = "EditColor";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="content" >
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"> Thông Tin Sửa Màu</h3>
+
+        </div>
+        <div class="card-body"> 
+            @using (Html.BeginForm("EditColor", "ColorAdmin", FormMethod.Post))
+            {
+                  @Html.HiddenFor(p => p.Id)
+                  <div class="bs-stepper-content">
+                    <!-- your steps content here -->
+                    <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Màu</label>
+                           @Html.TextBoxFor(p => p.Name, new { @class = "form-control" })
+                           @Html.ValidationMessageFor(Model => Model.Name, "", new { @class = "text-danger" })
+                     
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Trạng Thái</label>                    
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="Status" id="Status1" value="0" checked
+                            @(Model.Status == 0 ? "checked" : "")>
+                            <label class="form-check-label" for="Status1">
+                                Còn Màu
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="Status" id="Status2" value="1"
+                            @(Model.Status == 1 ? "checked" : "")>
+                            <label class="form-check-label" for="Status2">
+                                Hết Màu
+                            </label>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <a href="/Admin/ColorAdmin/ShowAllColor" class="btn btn-primary" >Quay Lại</a>
+                        <button type="Submit" class="btn btn-danger" >Submit</button>
+                      </div>
+
+                      
+                    </div>
+             
+                  </div>
+           
+            }
+
+        </div>
+
+
+        <div class="card-footer"> 
+
+
+        </div>
+
+    </div>
+
+</section> 

@@ -1,0 +1,73 @@
+﻿@model DuAn.Models.Role
+
+@{
+    ViewData["Title"] = "CreateRole";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="content" >
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"> Thông Tin Thêm Chức Vụ</h3>
+
+        </div>
+        <div class="card-body"> 
+            @using (Html.BeginForm("CreateRole", "RoleAdmin", FormMethod.Post))
+            {
+                  @Html.HiddenFor(p => p.Id)
+                  <div class="bs-stepper-content">
+                    <!-- your steps content here -->
+                    <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Chức Vụ</label>
+                           @Html.TextBoxFor(p => p.RoleName, new { @class = "form-control" })
+                           @Html.ValidationMessageFor(Model => Model.RoleName, "", new { @class = "text-danger" })
+                     
+                      </div>
+                         <div class="form-group">
+                        <label for="exampleInputEmail1">Mô Tả</label>
+                           @Html.TextBoxFor(p => p.Description, new { @class = "form-control" })
+                           @Html.ValidationMessageFor(Model => Model.Description, "", new { @class = "text-danger" })
+                     
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Status</label>                    
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="Status" id="Status1" value="0" checked>
+                            <label class="form-check-label" for="Status1">
+                                Còn Hoạt Động 
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="Status" id="Status2" value="1" >
+                            <label class="form-check-label" for="Status2">
+                                K Hoạt Động 
+                            </label>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <a href="/Admin/ColorAdmin/ShowAllColor" class="btn btn-primary" >Quay Lại</a>
+                        <button type="Submit" class="btn btn-danger" >Submit</button>
+                      </div>
+
+                      
+                    </div>
+             
+                  </div>
+           
+            }
+
+        </div>
+
+
+        <div class="card-footer"> 
+
+
+        </div>
+
+    </div>
+
+</section>  
+

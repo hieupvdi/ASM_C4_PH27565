@@ -1,0 +1,84 @@
+﻿@model IEnumerable<DuAn.Models.Role>
+
+@{
+    ViewData["Title"] = "ShowAllRole";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="content" >
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Quản Lý Chức Vụ</h3>
+            <div class="d-flex justify-content-end">
+
+            <a href="@Url.Action("CreateRole","RoleAdmin")" > 
+            <button type="button" class="btn btn-primary" >
+            <i class="bi bi-pencil-square"> Thêm</i>
+            </button>
+            </a>
+
+            </div>
+        </div>
+        <div class="card-body"> 
+
+<table class="table">
+    <thead>
+        <tr>
+          @*  <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.RoleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+          @*  <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                   @if (item.Status == 0) {
+                        <span>Còn Hoạt Động</span>
+                   }else {
+                        <span>K Hoạt Động</span>
+                    }
+                   
+            </td>
+            <td>
+              
+                <a  class="btn btn-primary" href="@Url.Action("EditRole","RoleAdmin",new{id=item.Id})">Sửa</a>
+                <a  class="btn btn-danger" href="@Url.Action("DetailRoles","RoleAdmin",new{id=item.Id})">Chi Tiết</a>
+                <a  class="btn btn-warning" href="@Url.Action("DeleteRole","RoleAdmin",new{id=item.Id})">Xóa</a>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+        </div>
+
+
+        <div class="card-footer"> 
+
+        </div>
+
+    </div>
+
+</section>

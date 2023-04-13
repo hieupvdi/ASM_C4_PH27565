@@ -1,0 +1,123 @@
+﻿@model IEnumerable<DuAn.Models.User>
+
+@{
+    ViewData["Title"] = "ShowAllUser";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="content" >
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Quản Lý Tài Khoản</h3>
+            <div class="d-flex justify-content-end">
+
+            <a href="@Url.Action("CreateUser","UserAdmin")" > 
+            <button type="button" class="btn btn-primary" >
+            <i class="bi bi-pencil-square"> Thêm</i>
+            </button>
+            </a>
+
+            </div>
+        </div>
+        <div class="card-body"> 
+<table class="table" >
+    <thead>
+        <tr>
+        @*    <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Gmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LinkAnh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+         @*   <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Gmail)
+            </td>
+            <td>
+                <img src="@item.LinkAnh" style="width: 100px; height: 100px;"/>
+               @* @Html.DisplayFor(modelItem => item.LinkAnh)*@
+               
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+              @*  hai cách lâý Role  name cho bảng user*@
+                    @{
+                        DuAn.Models.ShopDbContext db = new DuAn.Models.ShopDbContext();
+                        dynamic cv = db.Roles.Find(item.RoleId);
+
+
+                        if(cv != null)
+                        {
+                            <spam>@cv.RoleName</spam>
+                        }
+                    }
+                    @*  cách 2 bị lỗi*@
+                   @*  @if(item.RoleId != null)
+                     {
+                                <spam>@item.Role.RoleName</spam>
+                     }*@
+              
+
+               @* @Html.DisplayFor(modelItem => item.RoleId)*@
+            </td>
+            <td>
+             
+                    @if (item.Status == 0)
+                    {
+                        <spam>K Khóa </spam>
+                    }
+                    else
+                    {
+                        <spam>Khóa </spam>
+                    }
+                    @*   @Html.DisplayFor(modelItem => item.Status)*@
+            </td>
+            <td>
+                <a  class="btn btn-primary" href="@Url.Action("EditUser","UserAdmin",new{id=item.Id})">Sửa</a>
+                <a  class="btn btn-danger" href="@Url.Action("DetailUsers","UserAdmin",new{id=item.Id})">Chi Tiết</a>
+                <a  class="btn btn-warning" href="@Url.Action("DeleteUser","UserAdmin",new{id=item.Id})">Xóa</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+        </div>
+
+
+        <div class="card-footer"> 
+
+        </div>
+
+    </div>
+
+</section>

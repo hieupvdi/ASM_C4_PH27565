@@ -1,0 +1,185 @@
+﻿@model IEnumerable<DuAn.Models.CartDetails>
+
+@{
+    ViewData["Title"] = "ShowallCartDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+      List<CartDetails> listCartDetails = ViewBag.listCartDetails;
+    List<Product> listProduct = ViewBag.listProduct;
+}
+
+    <!-- ========================= SECTION CONTENT ========================= -->
+    <div class="container contact_container">
+         <div class="row">
+              <div class="col">
+
+                  <!-- Breadcrumbs -->
+                  <div class="breadcrumbs d-flex flex-row align-items-center">
+                      <ul>
+                          <li><a href="index.html">Home</a></li>
+                          <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Contact</a></li>
+                      </ul>
+                  </div>
+
+              </div>
+         </div>
+         <div class="row">
+                <section class="section-content padding-y">
+                    <div class="container">
+
+                        <div class="row">
+                        <main class="col-md-9">
+                    <div class="card">
+
+                        <table class="table table-borderless table-shopping-cart">
+                            <thead class="text-muted">
+                                <tr class="small text-uppercase">
+                                    <th scope="col">Sản Phẩm </th>
+                                    <th scope="col" width="120">Số Lượng</th>
+                                    <th scope="col" width="120">Giá Bán</th>
+                                     <th scope="col" width="120">Thành Tiền</th>
+                                    <th scope="col" class="text-right" width="200"> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                      
+                                    @foreach(var item in listCartDetails)
+                                    {
+                                       
+                                    <tr>
+                                    <td>
+                                        <figure class="itemside">
+                                            <div class="aside"><img src="@listProduct.FirstOrDefault(c=>c.Id == item.IdSP).LinkAnh" class="img-sm" style="width: 100px; height: 100px;"></div>
+                                            <figcaption class="info">
+                                                <a href="#" class="title text-dark">@listProduct.FirstOrDefault(c=>c.Id == item.IdSP).Name</a>
+                                                <p class="small text-muted">Size: XL, Color: blue, Brand: Tissot</p>
+                                            </figcaption>
+                                        </figure>
+                                    </td>
+                                    <td>
+                                       <div class="quantity_selector">
+                                         <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                         <span id="quantity_value">@item.Quantity</span>
+                                         <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                         </div>
+@*                                        <select class="form-control">
+			                                <option>@item.Quantity</option>
+			                                	
+		                                </select>*@
+                                    </td>
+                                    <td>
+                                        <div class="price-wrap">
+                                            <var class="price">@listProduct.FirstOrDefault(c=>c.Id == item.IdSP).Price VNĐ</var>
+                                       
+                                        </div>
+                                        <!-- price-wrap .// -->
+                                    </td>
+                                    <td>
+                                        <div class="price-wrap">
+                                            <var class="price">@(listProduct.FirstOrDefault(c => c.Id == item.IdSP)?.Price * item.Quantity)</var>
+                                       
+                                        </div>
+                                        <!-- price-wrap .// -->
+                                    </td>
+                                    <td class="text-right">
+                                        <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
+                                        <a href="@Url.Action("DeleteCartDetails","Cart",new{id=item.Id})" class="btn btn-light btn-round">Xóa</a>
+                                    </td>
+                                    </tr>                                        
+
+
+                                    }
+
+                            </tbody>
+                        </table>
+
+                        <div class="card-body border-top">
+                            <a href="" class="btn btn-primary float-md-right">Xóa Hết </a>
+                            <a href="@Url.Action("Index","Home")" class="btn btn-light">Quay Lai</a>
+                        </div>
+                    </div>
+                    <!-- card.// -->
+
+                    <div class="alert alert-success mt-3">
+                        <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
+                    </div>
+
+                </main>
+                <!-- col.// -->
+                <aside class="col-md-3">
+                    <!-- card .// -->
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <dl class="dlist-align">
+                              @*  đếm số sp
+                                @listCartDetails.Count()*@
+                                <dt>Gía: @listCartDetails.Sum(c => c.Quantity * (listProduct.FirstOrDefault(x=>x.Id == c.IdSP)?.Price ?? 0))</dt>
+                                
+                            </dl>
+                            <dl class="dlist-align">
+                                <dt>Phí ship: O VNĐ</dt>
+                               
+                            </dl>
+                            <dl class="dlist-align">
+                               <dt>Tổng Tiền: @listCartDetails.Sum(c => c.Quantity * (listProduct.FirstOrDefault(x=>x.Id == c.IdSP)?.Price ?? 0))</dt>
+                            
+                            </dl>
+                            <hr>
+                            <p class="text-center mb-3">
+                                <img src="/images/payments.png" height="26">
+                            </p>
+
+                        </div>
+                        <!-- card-body.// -->
+                    </div>
+                    <!-- card .// -->
+                      
+                    <div class="card ">
+                        @using (Html.BeginForm("CreateBill", "Bill", FormMethod.Post))
+                        {
+                            <div class="input-group mb-3">
+                            @Html.TextBox("customername", null, new { @class = "form-control", @placeholder = "Tên Khách Hàng" })
+                            </div>
+
+                            <div class="input-group mb-3">
+                            @Html.TextBox("sdt", null, new { @class = "form-control", @placeholder = "SĐT" })
+                            </div>
+
+                            <div class="input-group mb-3">
+                            @Html.TextBox("diachi", null, new { @class = "form-control", @placeholder = "Địa Chỉ" })
+                            </div>
+                            <div class="input-group mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="Status" id="Status1" value="0" checked>
+                                        <label class="form-check-label" for="Status1">
+                                            TT Khi nhận Hàng 
+                                        </label>
+                                    </div>
+                                
+                            </div>
+                            <div class="input-group mb-3">
+                                   <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="Status" id="Status2" value="1" >
+                                        <label class="form-check-label" for="Status2">
+                                            ATM 
+                                        </label>
+                                   </div>
+                            </div>
+                            <div >
+                                <button type="submit" class="btn btn-primary btn-block">Đặt Hàng</button>
+                            </div>
+                        }
+                    </div>
+
+
+                </aside>
+                <!-- col.// -->
+            </div>
+
+        </div>
+        <!-- container .//  -->
+                </section>
+
+            </div>
+    </div>
+
+

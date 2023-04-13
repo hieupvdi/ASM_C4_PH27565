@@ -1,0 +1,123 @@
+﻿@model IEnumerable<DuAn.Models.Bill>
+
+@{
+    ViewData["Title"] = "ShowAllBill";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+       List<Bill> listBill = ViewBag.listBill;
+    List<BillDetails> listProductBill = ViewBag.listProductBill;
+}
+
+    <div class="container contact_container">
+<div class="row">
+              <div class="col">
+
+                  <!-- Breadcrumbs -->
+                  <div class="breadcrumbs d-flex flex-row align-items-center">
+                      <ul>
+                          <li><a href="index.html">Home</a></li>
+                          <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Contact</a></li>
+                      </ul>
+                  </div>
+
+              </div>
+</div>
+<div class="row">
+<section class="content" >
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Hóa Đơn</h3>
+
+        </div>
+        <div class="card-body"> 
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sdt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Diachi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in listBill) {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sdt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Diachi)
+            </td>
+            <td>
+                  @if (item.Status == 0)
+                  {
+                       <span>Chờ Thanh toán</span>
+
+                  }else if (item.Status == 1)
+                  {
+                       <span>Đã Thanh Toán</span>
+                  }
+                  else
+                  {
+                       <span>Đã Hủy</span>
+                  }
+                  @* @Html.DisplayFor(modelItem => item.Status)*@
+            </td>
+            <td>
+               <a  class="btn btn-primary" href="@Url.Action("ShowAllBillDetails","Bill",new{idhd=item.Id})">CT Đơn Hàng</a>
+                 @if (item.Status != 1 && item.Status !=3)
+                 {
+                     <a  class="btn btn-danger" href="@Url.Action("DeleteBill","Bill",new{idhd=item.Id})">Hủy Đơn Hàng</a>
+
+                 }
+                                      
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+        </div>
+
+
+        <div class="card-footer"> 
+
+        </div>
+
+    </div>
+
+</section>
+         </div>
+
+   </div>

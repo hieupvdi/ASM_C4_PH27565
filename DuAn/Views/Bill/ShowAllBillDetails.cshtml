@@ -1,0 +1,89 @@
+﻿@model IEnumerable<DuAn.Models.BillDetails>
+
+@{
+    ViewData["Title"] = "ShowAllBillDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+     List<BillDetails> listbillDetails = ViewBag.listbillDetails;
+     List<Product> listProduct = ViewBag.listProduct;
+}
+
+<div class="container contact_container">
+<div class="row">
+              <div class="col">
+
+                  <!-- Breadcrumbs -->
+                  <div class="breadcrumbs d-flex flex-row align-items-center">
+                      <ul>
+                          <li><a href="index.html">Home</a></li>
+                          <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Contact</a></li>
+                      </ul>
+                  </div>
+
+              </div>
+</div>
+<div class="row">
+<section class="content" >
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Hóa Đơn</h3>
+
+        </div>
+        <div class="card-body"> 
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdSP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdHD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in listbillDetails) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdHD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+
+        </tr>
+}
+    </tbody>
+</table>
+        </div>
+
+
+        <div class="card-footer"> 
+
+        </div>
+
+    </div>
+
+</section>
+         </div>
+
+   </div>

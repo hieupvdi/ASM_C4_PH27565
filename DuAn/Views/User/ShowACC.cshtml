@@ -1,0 +1,102 @@
+﻿@model IEnumerable<DuAn.Models.User>
+
+@{
+    ViewData["Title"] = "ShowACC";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="container contact_container">
+<div class="row">
+              <div class="col">
+
+                  <!-- Breadcrumbs -->
+                  <div class="breadcrumbs d-flex flex-row align-items-center">
+                      <ul>
+                          <li><a href="index.html">Home</a></li>
+                          <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Contact</a></li>
+                      </ul>
+                  </div>
+
+              </div>
+</div>
+<div class="row">
+             <section class="content" >
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"> Thông Tin Tài Khoản</h3>
+
+        </div>
+        <div class="card-body"> 
+            <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LinkAnh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LinkAnh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a  class="btn btn-primary" href="@Url.Action("EditUser","User",new{id=item.Id})">Cập Nhập Thông Tin</a>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+        </div>
+
+
+        <div class="card-footer"> 
+
+        </div>
+
+    </div>
+
+</section>
+         </div>
+
+   </div>
