@@ -76,13 +76,12 @@ namespace DuAn.Controllers
 
 
 
-        public IActionResult CreateBill(string customername, int  sdt,string diachi,int Status)
+        public IActionResult CreateBill(string customername, int sdt, string diachi, int Status)
         {
             var userIdString = HttpContext.Session.GetString("UserId");
 
             if (!string.IsNullOrEmpty(userIdString) && Guid.TryParse(userIdString, out var userId))
             {
-
                 // Tạo 1 hóa đơn mới cho người dùng nhập tin để giao hàng
                 Bill objBill = new()
                 {
@@ -90,14 +89,14 @@ namespace DuAn.Controllers
                     UserId = userId,
                     CustomerName = customername,
                     Sdt = sdt,
-                    Diachi=diachi,
+                    Diachi = diachi,
                     Status = Status,
-                    CreateDate = DateTime.Now,  
+                    CreateDate = DateTime.Now,
                 };
                 var resultCreateBill = _billServices.CreateBill(objBill);
                 var resultCreateProductBill = false;
 
-                int countError = 0;// đếm những sản phẩm không thêm được thành công vào hóa đơn
+                int countError = 0; // đếm những sản phẩm không thêm được thành công vào hóa đơn
 
                 List<CartDetails> listCartDetails = _cartDetailsServices.GetCartDetailsByName(userId);
                 var listProduct = _productServices.GetAllProducts();
@@ -108,48 +107,47 @@ namespace DuAn.Controllers
                     // Tạo các sản phẩm trong hóa đơn = các sản phẩm trong giỏ hàng
                     foreach (var item in listCartDetails)
                     {
-                        BillDetails billdetails = new BillDetails()
+                        var product = listProduct.FirstOrDefault(c => c.Id == item.IdSP);
+                        if (product != null && product.AvailableQuantity >= item.Quantity)
                         {
-                    
-                            IdSP = item.IdSP,
-                            IdHD = objBill.Id,
-                            Quantity = item.Quantity,
-                            Price = listProduct.FirstOrDefault(c => c.Id == item.IdSP).Price,
+                            BillDetails billdetails = new BillDetails()
+                            {
+                                IdSP = item.IdSP,
+                                IdHD = objBill.Id,
+                                Quantity = item.Quantity,
+                                Price = product.Price,
+                            };
 
-                         
-                        };
-
-                          _billDetailsServices.CreateBillDetails(billdetails);
-                        if (!resultCreateProductBill)
+                            _billDetailsServices.CreateBillDetails(billdetails);
+                            product.AvailableQuantity -= item.Quantity;
+                            _productServices.UpdateProduct(product);
+                        }
+                        else
                         {
                             countError++;
                         }
-
                     }
+
                     // Xóa các sản phẩm trong giỏ hàng
                     foreach (var cartDetails in listCartDetails)
                     {
-                         _cartDetailsServices.DeleteCartDetails(cartDetails.IdSP, cartDetails.UserId);
+                        _cartDetailsServices.DeleteCartDetails(cartDetails.IdSP, cartDetails.UserId);
                     }
+
                     if (countError == 0)
                     {
                         //return RedirectToAction("ShowAllBillDetails");
-                        return RedirectToAction("ShowAllBillDetails", new { idhd = objBill.Id });
+                        return RedirectToAction("ShowAllBill");
                     }
-                
-
                 }
                 return RedirectToAction("ShowAllBill");
-
-
-
             }
             else
             {
-                return RedirectToAction("ShowallCartDetails", "Cart");
+                return RedirectToAction("ShowAllCartDetails", "Cart");
             }
-             
         }
+
         //lỗi k  xóa mền đ
         public IActionResult DeleteBill(Guid idhd) 
         {

@@ -95,7 +95,7 @@ namespace DuAn.Migrations
                     LinkAnh = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
                     AvailableQuantity = table.Column<int>(type: "int", nullable: false),
-                    Supplier = table.Column<string>(type: "nchar(100)", fixedLength: true, maxLength: 100, nullable: false),
+                    Supplier = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ColorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),

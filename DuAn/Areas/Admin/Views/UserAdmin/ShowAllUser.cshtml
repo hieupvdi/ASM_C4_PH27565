@@ -50,6 +50,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
+    @if(item.Status!=2){
         <tr>
          @*   <td>
                 @Html.DisplayFor(modelItem => item.Id)
@@ -95,9 +96,13 @@
                     {
                         <spam>K Khóa </spam>
                     }
-                    else
+                    else if(item.Status==1)
                     {
                         <spam>Khóa </spam>
+                    }
+                     else
+                    {
+                        <spam>đã bị xóa </spam>
                     }
                     @*   @Html.DisplayFor(modelItem => item.Status)*@
             </td>
@@ -107,6 +112,7 @@
                 <a  class="btn btn-warning" href="@Url.Action("DeleteUser","UserAdmin",new{id=item.Id})">Xóa</a>
             </td>
         </tr>
+}
 }
     </tbody>
 </table>

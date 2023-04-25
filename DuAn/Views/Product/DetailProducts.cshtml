@@ -85,6 +85,8 @@
             var CategoryName = Category != null ? Category.Name : "N/A";
         }
         <dd class="col-sm-8">@CategoryName</dd>
+         <dt class="col-sm-12">Số lượng sp :@Model.AvailableQuantity</dt> 
+
         @*Trang Thái*@
         <dt class="col-sm-4">Trang Thái</dt>
         <dd class="col-sm-8">
@@ -113,7 +115,11 @@
                                 <span id="quantity_value">1</span>
                                 <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
                             </div>
-                            <div class="btn btn-danger" style="margin-left:20px"><a href="@Url.Action("CreateCartDetails","Cart",new { idsp=Model.Id@*,userid=Guid.Parse("10000000-0000-0000-0000-000000000001")*@})">ADD TO CART</a></div>
+                            @if(Model.AvailableQuantity > 0)
+                            {
+                                <div class="btn btn-danger" style="margin-left:20px"><a href="@Url.Action("CreateCartDetails","Cart",new { idsp=Model.Id@*,userid=Guid.Parse("10000000-0000-0000-0000-000000000001")*@})">ADD TO CART</a></div>
+                            }
+                   
                             <div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
                         </div>
                     </div>

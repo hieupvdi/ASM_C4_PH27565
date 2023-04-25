@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace DuAn.Controllers
@@ -130,15 +131,10 @@ namespace DuAn.Controllers
 
         public IActionResult DangNhap(string username, string password)
         {
+            //đang lỗi
+            //if (!Regex.IsMatch(usernam, "^[a-zA-Z0-9]*$") || !Regex.IsMatch(pass, "^[a-zA-Z0-9]*$"))
             var user = _userServices.GetUserUserName(username.Trim());
             var users = SessionUser.GetObjFromSession(HttpContext.Session, "Users");
-
-  
-
-
-
-
-
 
             if (user != null && user.Username == username && user.Password == password && user.Status == 0)
             {

@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+    string errrr = ViewBag.errr;
+}
+
+<form asp-controller="Login" asp-action="Login1">
+    @if (!string.IsNullOrEmpty(errrr))
+    {
+        <spam style="color:red!important">@errrr</spam>
+    }
+    <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <label>tên tài khoản</label>
+        <input  name="username"/>
+  </div>
+  <div class="mb-3">
+         <label>pass</label>
+       <input  name="pass"/>
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

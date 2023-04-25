@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DuAn.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20230412142138_Dbset")]
+    [Migration("20230415002226_Dbset")]
     partial class Dbset
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -196,10 +196,7 @@ namespace DuAn.Migrations
 
                     b.Property<string>("Supplier")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(true)
-                        .HasColumnType("nchar(100)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 

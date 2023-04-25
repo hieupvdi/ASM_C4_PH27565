@@ -1,5 +1,6 @@
 ﻿using DuAn.IServices;
 using DuAn.Models;
+using System.Linq;
 
 namespace DuAn.Services
 {
@@ -32,9 +33,15 @@ namespace DuAn.Services
         {
             try
             {
+
+            
+
                 //Find(id) chi  dung duoc khi id laf khoa chinh
-                dynamic User = Context.Users.Find(id);//dynamic khiieu du lu naof cung nhan var thi k
-                Context.Users.Remove(User);
+                var User = Context.Users.ToList();//dynamic khiieu du lu naof cung nhan var thi k
+                var obj = User.FirstOrDefault(c => c.Id == id);
+                obj.Status =2;
+
+                Context.Users.Update(obj);
                 Context.SaveChanges();
                 return true;
             }

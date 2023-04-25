@@ -33,12 +33,15 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Id)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.IdSP)
             </th>
+              <th>
+                  <span>ảnh</span>
+              </th>
             <th>
                 @Html.DisplayNameFor(model => model.IdHD)
             </th>
@@ -54,11 +57,37 @@
     <tbody>
 @foreach (var item in listbillDetails) {
         <tr>
-            <td>
+           @* <td>
                 @Html.DisplayFor(modelItem => item.Id)
+            </td>*@
+            <td>
+                 @{
+                        DuAn.Models.ShopDbContext db = new DuAn.Models.ShopDbContext();
+                        dynamic pro = db.Products.Find(item.IdSP);
+
+
+                        if(pro != null)
+                        {
+                            <spam>@pro.Name</spam>
+                        }
+                    }
+               @* @Html.DisplayFor(modelItem => item.IdSP)*@
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdSP)
+            @{
+                 DuAn.Models.Product Products = db.Products.Find(item.IdSP);
+            if (Products != null)
+            {
+                 <img src="@Products.LinkAnh" style="width: 100px; height: 100px;"/>
+               
+               
+            }
+            else
+            {
+                <span>Unknown</span>
+            }
+            }
+            
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IdHD)

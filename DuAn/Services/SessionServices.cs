@@ -31,5 +31,12 @@ namespace DuAn.Services
         {
             return poroducts.Any(p => p.Id == id);
         }
+        // 1. Đọc dữ liệu từ Session => Trả về 1 product
+        public static T GetObjFromSessionJson<T>(ISession session, string key)
+        {
+            var value = session.GetString(key);
+            return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
+
+        }
     }
 }

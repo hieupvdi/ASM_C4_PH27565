@@ -136,8 +136,11 @@
                 @*@Html.DisplayFor(modelItem => item.Status)*@
                 @if (item.Status == 0) {
                     <span>Còn Hàng</span>
-                } else {
+                } else if (item.Status == 1) {
                     <span>Hết Hàng</span>
+                }else
+                {
+                    <spam>đã bị xóa </spam>
                 }
             </td>
             <td>
@@ -149,6 +152,7 @@
             
 
 }
+
     </tbody>
 </table>
 

@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Product> listpro = ViewBag.listProduct;
 
 }
 
@@ -133,7 +134,7 @@
                         <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
                @*   đổi kiểu tiền*@
                   @* @(string.Format(new CultureInfo("vi-VN"), "{0:C0}", item.Price ))*@
-                        @foreach (var item in Model)
+                        @foreach (var item in listpro)
                         {
                             <!-- Product Mẫu -->
                             <a href="@Url.Action("DetailProducts","Product",new { id=item.Id })">
@@ -228,7 +229,7 @@
                             <div class="owl-carousel owl-theme product_slider">
 
 
-                                  @foreach(var item in Model)
+                                  @foreach(var item in listpro)
                     {
                                 <!-- Slide Mẫu -->
                              

@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "DanhSachsp";
     Layout = "~/Views/Shared/_Layout.cshtml";
+	 List<Product> listpro = ViewBag.listProduct;
 }
 
 
@@ -193,7 +194,7 @@
 
 								<div class="product-grid">
 								
-						            @foreach (var item in Model)
+						            @foreach (var item in listpro)
 									{
 									<!-- Product Mẫu -->
 									<a href="@Url.Action("DetailProducts","Product",new { id=item.Id })">

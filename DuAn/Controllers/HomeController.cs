@@ -4,6 +4,7 @@ using DuAn.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 
@@ -28,8 +29,9 @@ namespace DuAn.Controllers
         public IActionResult Index()
         {
                    
-            List<Product> Products = productServices.GetAllProducts();
-            return View(Products); // Truyền trực tiếp 1 Obj Model duy nhất sang View
+            var Products = productServices.GetAllProducts();
+            ViewBag.listProduct = Products.Where(c =>c.Status==0).ToList();
+            return View(); // Truyền trực tiếp 1 Obj Model duy nhất sang View
 
 
 
@@ -38,8 +40,9 @@ namespace DuAn.Controllers
 
         public ActionResult DanhSachsp()
         {
-            List<Product> Products = productServices.GetAllProducts();
-            return View(Products); // Truyền trực tiếp 1 Obj Model duy nhất sang View
+            var Products = productServices.GetAllProducts();
+            ViewBag.listProduct = Products.Where(c => c.Status == 0).ToList();
+            return View(); // Truyền trực tiếp 1 Obj Model duy nhất sang View
         }
   
 

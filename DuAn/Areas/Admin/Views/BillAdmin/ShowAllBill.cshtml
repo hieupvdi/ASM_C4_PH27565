@@ -17,9 +17,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+           @* <th>
                 @Html.DisplayNameFor(model => model.Id)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.CreateDate)
             </th>
@@ -44,14 +44,24 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+          @*  <td>
                 @Html.DisplayFor(modelItem => item.Id)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.CreateDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
+                        @{
+                        DuAn.Models.ShopDbContext db = new DuAn.Models.ShopDbContext();
+                        dynamic us = db.Users.Find(item.UserId);
+
+
+                        if(us != null)
+                        {
+                            <spam>@us.Username</spam>
+                        }
+                    }
+              @*  @Html.DisplayFor(modelItem => item.UserId)*@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CustomerName)
@@ -63,7 +73,19 @@
                 @Html.DisplayFor(modelItem => item.Diachi)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                  @if (item.Status == 0)
+                  {
+                       <span>Chờ Thanh toán</span>
+
+                  }else if (item.Status == 1)
+                  {
+                       <span>Đã Thanh Toán</span>
+                  }
+                  else
+                  {
+                       <span>Đã Hủy</span>
+                  }
+                @*@Html.DisplayFor(modelItem => item.Status)*@
             </td>
             <td>
               <a  class="btn btn-warning" href="@Url.Action("ShowAllBillDetails","BillAdmin",new{idhd=item.Id})">HD CT</a>

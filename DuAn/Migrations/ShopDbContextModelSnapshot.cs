@@ -194,10 +194,7 @@ namespace DuAn.Migrations
 
                     b.Property<string>("Supplier")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(true)
-                        .HasColumnType("nchar(100)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
