@@ -40,11 +40,19 @@ namespace DuAn.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult CreateRole(Role p)
         {
-            if (roleServices.CreateRole(p))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("ShowAllRole");
+                if (roleServices.CreateRole(p))
+                {
+                    return RedirectToAction("ShowAllRole");
+                }
+                else return BadRequest();
             }
-            else return BadRequest();
+            else
+            {
+                return RedirectToAction("CreateRole");
+            }
+           
         }
 
         public IActionResult DetailRoles(Guid id)
